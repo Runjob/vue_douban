@@ -108,11 +108,13 @@
       },
       switchItem(index) { // 切换tab栏
         this.currentIndex = index;
+        // console.log(this.$refs.list);
         if (index === 1) { // 重新计算各个区间高度
           this.$refs.list.recalculate();
         }
         // 第一次切换到即将上映选项卡后开始请求即将上映电影的数据
         if (index === 1 && !this.comingMovies.length) {
+          // console.log(this.comingMovies.length);
           getComingMovie(this.comingMovieIndex, SEARCH_MORE).then((res) => {
             this.comingMovies = createMovieList(res.subjects); // 格式化数据，创建包含电影类的数组
             this._checkMore(res); // 检查是否还存在更多数据
@@ -175,8 +177,9 @@
           this._checkMore(res); // 检查是否还存在更多数据
         });
       },
+      //  检查剩余数据是否足够
       _checkMore(data) {
-        const movies = data.subjects;
+        const movies = data.subjects; // 电影数组数据
         if (!movies.length || data.start + data.count > data.total) {
           if (this.currentIndex === 0) {
             this.hasMoreHotMovies = false;
@@ -218,6 +221,7 @@
       },
       diff(newval) {
         let fixedTop = (newval > 0 && newval < TITLE_HEIGHT) ? newval - TITLE_HEIGHT : 0;
+        // console.log(newval);
         if (this.fixedTop === fixedTop) {
           return;
         }

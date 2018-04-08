@@ -18,7 +18,7 @@
         default: true
       },
       data: {
-//        type: Array,
+        type: Array,
         default: null
       },
       scrollX: { // 设置滚动方向为x轴
